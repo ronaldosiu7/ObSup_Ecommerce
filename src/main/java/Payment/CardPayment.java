@@ -16,6 +16,16 @@ public class CardPayment extends Payment{
 		this.cardExpiryDate = cardExpiryDate;
 		this.cvv = cvv;
 	}
+
+	public boolean validateCardDetails() {
+        	return cardNumber != null && cardNumber.length() == 16 && cvv.length() == 3;
+   	}
+	
+   	public double calculatedPrice(double productPrice) {
+        	double basePrice = super.calculatedPrice(productPrice);
+       		System.out.println("Menghitung harga untuk Card Payment...");
+        	return basePrice; 
+	}
 	
 	public String getCardNumber() {
 		return cardNumber;
