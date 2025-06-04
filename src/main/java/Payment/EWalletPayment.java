@@ -16,9 +16,17 @@ public class EwalletPayment extends Payment implements Payable {
     public boolean checkBalance() {
         System.out.println("Memeriksa saldo e-wallet...");
         return this.balance > 0; 
+    }
 
-    public void deductBalance() {
-      return null;
+    public void deductBalance(double amountToDeduct) {
+      System.out.println("Mencoba mengurangi saldo sebesar: " + amountToDeduct);
+
+        if (this.balance < amountToDeduct) {
+            throw new InsufficientBalanceException("Saldo tidak mencukupi. Saldo saat ini: " + this.balance + ", dibutuhkan: " + amountToDeduct);
+        }else{
+            this.balance -= amountToDeduct;
+            System.out.println("Saldo berhasil dikurangi. Saldo sekarang: " + this.balance);
+        }
     }
 
     @Override
@@ -26,7 +34,7 @@ public class EwalletPayment extends Payment implements Payable {
         double basePrice = super.calculatedPrice(productPrice);
         System.out.println("Menghitung harga untuk EwalletPayment...");
         return basePrice; 
-        
+    }
 
     @Override
     public void paymentDetail(String productId, String userId) {
